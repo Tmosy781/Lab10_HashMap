@@ -1,7 +1,9 @@
+
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class SessionManager {
+
     private HashMap<String, UserSession> sessionTable;
     private boolean oneUser = false;
 
@@ -23,16 +25,15 @@ public class SessionManager {
         return sessionTable.get(sessionId);
     }
 
-    public void removeSession(String sessionId)
-    {
+    public void removeSession(String sessionId) {
         if (sessionTable.containsKey(sessionId)) {
             sessionTable.remove(sessionId);
             System.out.println("User logged out successfully.");
+            if (sessionTable.isEmpty()) {
+                oneUser = false;
+            }
         } else {
             System.out.println("Session not found. Please try again.");
-        }
-        if(sessionTable.isEmpty()){
-            oneUser = false;
         }
     }
 
@@ -40,7 +41,7 @@ public class SessionManager {
         for (String id : sessionTable.keySet()) {
             System.out.println("Session ID: " + id + " -> " + sessionTable.get(id));
         }
-        if(!oneUser){
+        if (!oneUser) {
             System.out.println("\nThere are no sessions currently logged in.");
         }
 
@@ -90,7 +91,6 @@ public class SessionManager {
 
                     // Logging the user out (removing the session)
                     sessionManager.removeSession(logoutSessionId);
-                    System.out.println("User logged out successfully.");
                     break;
                 case 4:
                     // Optionally, print all sessions
@@ -109,6 +109,7 @@ public class SessionManager {
 }
 
 class UserSession {
+
     private String sessionId;
 
     public UserSession() {
@@ -124,8 +125,8 @@ class UserSession {
     }
 
     public String toString() {
-        return "UserSession{" +
-                "sessionId='" + sessionId + '\'' +
-                '}';
+        return "UserSession{"
+                + "sessionId='" + sessionId + '\''
+                + '}';
     }
 }
